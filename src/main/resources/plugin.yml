@@ -1,0 +1,5 @@
+name: RailcarCoupler
+version: '${version}'
+main: kz.hxncus.mc.railcarcoupler.RailcarCoupler
+api-version: '1.13'
+softdepend: [ItemsAdder]

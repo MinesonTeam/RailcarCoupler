@@ -1,0 +1,13 @@
+# Пожалуйста, не изменяйте версию плагина.
+version: 1
+lang: "ru"
+main_train_material: FURNACE
+coupler_material: CHAIN
+coupler_selected_effect: VILLAGER_HAPPY
+inventory:
+  backward_slot: 10
+  backward_material: DIRT
+  still_slot: 13
+  still_material: REDSTONE
+  forward_slot: 16
+  forward_material: STONE

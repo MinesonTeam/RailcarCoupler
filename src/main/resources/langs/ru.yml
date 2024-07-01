@@ -1,0 +1,6 @@
+prefix: "PREFIX "
+vehicle_successfully_uncoupled: "Вагонетки успешно расцеплены"
+chosen_first_vehicle: "Первая вагонетка выбрана"
+vehicles_successfully_coupled: "Вагонетки успешно сцеплены"
+first_vehicle_not_found: "Первая вагонетка удалилась или стоит слишком далеко."
+train_control_inv_title: "Управление поездом"
