@@ -4,6 +4,7 @@ import kz.hxncus.mc.railcarcoupler.RailcarCoupler;
 import kz.hxncus.mc.railcarcoupler.cache.PlayerCache;
 import kz.hxncus.mc.railcarcoupler.cache.TrainCache;
 import kz.hxncus.mc.railcarcoupler.config.Messages;
+import kz.hxncus.mc.railcarcoupler.config.Settings;
 import kz.hxncus.mc.railcarcoupler.inventory.IInventory;
 import kz.hxncus.mc.railcarcoupler.inventory.TrainControlInventory;
 import org.bukkit.Material;
@@ -57,9 +58,11 @@ public class PlayerListener implements Listener {
             return;
         }
         ItemStack itemInMainHand = event.getPlayer().getInventory().getItemInMainHand();
-        if (itemInMainHand.getType() == Material.getMaterial(plugin.getConfig().getString("coupler_material", "CHAIN").toUpperCase(Locale.ENGLISH))) {
+        String couplerStr = Settings.COUPLER_MATERIAL.toString().toUpperCase(Locale.ENGLISH);
+        String mainTrainStr = Settings.MAIN_TRAIN_MATERIAL.toString().toUpperCase(Locale.ENGLISH);
+        if (itemInMainHand.getType() == Material.getMaterial(couplerStr)) {
             coupleMinecart(event, minecart, itemInMainHand);
-        } else if (itemInMainHand.getType() == Material.getMaterial(plugin.getConfig().getString("main_train_material", "FURNACE").toUpperCase(Locale.ENGLISH))) {
+        } else if (itemInMainHand.getType() == Material.getMaterial(mainTrainStr)) {
             event.setCancelled(true);
             plugin.getCacheManager().getTrainCache(minecart.getUniqueId()).setMain(true);
             minecart.setGlowing(true);

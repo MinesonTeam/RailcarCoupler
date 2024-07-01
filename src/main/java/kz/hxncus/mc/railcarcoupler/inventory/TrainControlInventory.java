@@ -2,9 +2,10 @@ package kz.hxncus.mc.railcarcoupler.inventory;
 
 import kz.hxncus.mc.railcarcoupler.cache.TrainCache;
 import kz.hxncus.mc.railcarcoupler.config.Messages;
+import kz.hxncus.mc.railcarcoupler.config.Settings;
 import kz.hxncus.mc.railcarcoupler.hook.ItemsAdderHook;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -18,10 +19,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Locale;
 
 public class TrainControlInventory extends AbstractInventory {
-    private final FileConfiguration config = plugin.getConfig();
-    private final int stillSlot = config.getInt("inventory.still_slot", 10);
-    private final int backwardSlot = config.getInt("inventory.backward_slot", 13);
-    private final int forwardSlot = config.getInt("inventory.forward_slot", 16);
+    private final int stillSlot = Settings.INVENTORY.toConfigSection().getInt("still.slot", 10);
+    private final int backwardSlot = Settings.INVENTORY.toConfigSection().getInt("backward.slot", 13);
+    private final int forwardSlot = Settings.INVENTORY.toConfigSection().getInt("forward.slot", 16);
 
     public TrainControlInventory() {
         super(27, Messages.TRAIN_CONTROL_INV_TITLE.toString());
@@ -43,35 +43,28 @@ public class TrainControlInventory extends AbstractInventory {
 
     @Override
     public void onInitialize() {
-        String stillMaterial = config.getString("inventory.still_material", "OAK_BUTTON");
-        String backwardMaterial = config.getString("inventory.backward_material", "OAK_BUTTON");
-        String forwardMaterial = config.getString("inventory.forward_material", "OAK_BUTTON");
-
-        ItemStack stillItem = getItemStack(stillMaterial);
-        ItemMeta stillItemMeta = stillItem.getItemMeta();
-        if (stillItemMeta != null) {
-            stillItemMeta.setDisplayName(config.getString("inventory.still_name"));
-            stillItemMeta.setLore(config.getStringList("inventory.still_lore"));
-            stillItem.setItemMeta(stillItemMeta);
+        ConfigurationSection section = Settings.INVENTORY.toConfigSection();
+        for (String key : section.getKeys(false)) {
+            ItemStack item = getItemStack(section.getString(key + ".material"));
+            ItemMeta itemMeta = item.getItemMeta();
+            if (itemMeta == null) {
+                continue;
+            }
+            itemMeta.setDisplayName(section.getString(key + ".name"));
+            itemMeta.setLore(section.getStringList(key + ".lore"));
+            item.setItemMeta(itemMeta);
+            switch (key) {
+                case "still":
+                    setItem(stillSlot, item);
+                    break;
+                case "backward":
+                    setItem(backwardSlot, item);
+                    break;
+                case "forward":
+                    setItem(forwardSlot, item);
+                    break;
+            }
         }
-        ItemStack backwardItem = getItemStack(backwardMaterial);
-        ItemMeta backwardItemMeta = backwardItem.getItemMeta();
-        if (backwardItemMeta != null) {
-            backwardItemMeta.setDisplayName(config.getString("inventory.backward_name"));
-            backwardItemMeta.setLore(config.getStringList("inventory.backward_lore"));
-            backwardItem.setItemMeta(backwardItemMeta);
-        }
-        ItemStack forwardItem = getItemStack(forwardMaterial);
-        ItemMeta forwardItemMeta = forwardItem.getItemMeta();
-        if (forwardItemMeta != null) {
-            forwardItemMeta.setDisplayName(config.getString("inventory.forward_name"));
-            forwardItemMeta.setLore(config.getStringList("inventory.forward_lore"));
-            forwardItem.setItemMeta(forwardItemMeta);
-        }
-
-        setItem(stillSlot, stillItem);
-        setItem(backwardSlot, backwardItem);
-        setItem(forwardSlot, forwardItem);
     }
 
     @Override

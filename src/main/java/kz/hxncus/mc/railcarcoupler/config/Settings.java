@@ -9,8 +9,8 @@ import java.util.List;
 
 @Getter
 public enum Settings {
-    VERSION("version"), PLUGIN_LANGUAGE("lang"), DEBUG("debug"), BOX_OPEN_REMOVE_AFTER_TIME("box-open-remove-after-time"), BOX_MIN_SPAWN_ITEMS("box-min-spawn-items"),
-    BOX_MAX_SPAWN_ITEMS("box-max-spawn-items"), BOXES("boxes");
+    VERSION("version"), PLUGIN_LANGUAGE("lang"), DEBUG("debug"), MAIN_TRAIN_MATERIAL("main_train_material"),
+    COUPLER_MATERIAL("coupler_material"), COUPLER_SELECTED_PARTICLE("coupler_selected_particle"), INVENTORY("inventory");
     private final String path;
 
     Settings(String path) {

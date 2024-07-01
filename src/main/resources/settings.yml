@@ -4,20 +4,23 @@ lang: "en"
 debug: false
 main_train_material: FURNACE
 coupler_material: CHAIN
-coupler_selected_effect: VILLAGER_HAPPY
+coupler_selected_particle: VILLAGER_HAPPY
 inventory:
-  backward_slot: 10
-  backward_material: DIRT
-  backward_name: Backward
-  backward_lore:
-    - Backward
-  still_slot: 13
-  still_material: REDSTONE
-  still_name: Still
-  still_lore:
-    - Still
-  forward_slot: 16
-  forward_material: STONE
-  forward_name: Forward
-  forward_lore:
-    - Forward
+  backward:
+    slot: 10
+    material: DIRT
+    name: Backward
+    lore:
+      - Backward
+  still:
+    slot: 13
+    material: REDSTONE
+    name: Still
+    lore:
+      - Still
+  forward:
+    slot: 16
+    material: STONE
+    name: Forward
+    lore:
+      - Forward

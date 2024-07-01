@@ -4,6 +4,7 @@ import kz.hxncus.mc.railcarcoupler.cache.PlayerCache;
 import kz.hxncus.mc.railcarcoupler.cache.TrainCache;
 import kz.hxncus.mc.railcarcoupler.command.CouplerCommand;
 import kz.hxncus.mc.railcarcoupler.config.ConfigManager;
+import kz.hxncus.mc.railcarcoupler.config.Settings;
 import kz.hxncus.mc.railcarcoupler.listener.EntityListener;
 import kz.hxncus.mc.railcarcoupler.listener.PlayerListener;
 import kz.hxncus.mc.railcarcoupler.manager.CacheManager;
@@ -88,7 +89,7 @@ public final class RailcarCoupler extends JavaPlugin {
                 Entity vehicle = getServer().getEntity(playerCache.getMinecartUuid());
                 if (vehicle != null) {
                     BoundingBox boundingBox = vehicle.getBoundingBox();
-                    vehicle.getWorld().spawnParticle(Particle.valueOf(getConfig().getString("coupler_selected_effect")), boundingBox.getCenterX(), boundingBox.getMaxY() + 0.5, boundingBox.getCenterZ(), 1);
+                    vehicle.getWorld().spawnParticle(Particle.valueOf(Settings.COUPLER_SELECTED_PARTICLE.toString()), boundingBox.getCenterX(), boundingBox.getMaxY() + 0.5, boundingBox.getCenterZ(), 1);
                 }
             }
         }, 0L, 20L);

@@ -2,14 +2,17 @@ package kz.hxncus.mc.railcarcoupler.listener;
 
 import kz.hxncus.mc.railcarcoupler.RailcarCoupler;
 import kz.hxncus.mc.railcarcoupler.cache.TrainCache;
+import kz.hxncus.mc.railcarcoupler.config.Settings;
 import org.bukkit.Material;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.vehicle.*;
+import org.bukkit.event.vehicle.VehicleDestroyEvent;
+import org.bukkit.event.vehicle.VehicleEntityCollisionEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.Locale;
 
 public class EntityListener implements Listener {
     private static RailcarCoupler plugin;
@@ -28,12 +31,16 @@ public class EntityListener implements Listener {
         if (removedTrainCache == null) {
             return;
         }
-        ItemStack coupler = new ItemStack(Material.getMaterial(plugin.getConfig().getString("coupler_material", "CHAIN").toUpperCase(Locale.ENGLISH)));
-        vehicle.getWorld().dropItemNaturally(vehicle.getLocation(), coupler);
         if (removedTrainCache.isMain()) {
-            String material = plugin.getConfig().getString("main_train_material", "FURNACE").toUpperCase(Locale.ENGLISH);
-            vehicle.getWorld().dropItemNaturally(vehicle.getLocation(), new ItemStack(Material.getMaterial(material)));
+            String materialStr = Settings.MAIN_TRAIN_MATERIAL.toString().toUpperCase(Locale.ENGLISH);
+            vehicle.getWorld().dropItemNaturally(vehicle.getLocation(), new ItemStack(Material.getMaterial(materialStr)));
         }
+        if (removedTrainCache.getCoupledVehicle() == null) {
+            return;
+        }
+        String materialStr = Settings.COUPLER_MATERIAL.toString().toUpperCase(Locale.ENGLISH);
+        ItemStack coupler = new ItemStack(Material.getMaterial(materialStr));
+        vehicle.getWorld().dropItemNaturally(vehicle.getLocation(), coupler);
     }
 
     @EventHandler
