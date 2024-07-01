@@ -52,8 +52,8 @@ public class ConfigManager {
         settings = validate("settings.yml", defaultSettings);
         langsFolder = new File(plugin.getDataFolder(), "languages");
         langsFolder.mkdir();
-        String languageFile = "languages/" + settings.getString(Settings.PLUGIN_LANGUAGE.getPath()) + ".yml";
-        language = validate("language.yml", defaultLanguage);
+        String languageFile = "langs/" + settings.getString(Settings.PLUGIN_LANGUAGE.getPath()) + ".yml";
+        language = validate(languageFile, defaultLanguage);
     }
 
     private YamlConfiguration validate(String configName, YamlConfiguration defaultConfiguration) {
@@ -63,14 +63,14 @@ public class ConfigManager {
         for (String key : defaultConfiguration.getKeys(true)) {
             if (configuration.get(key) == null) {
                 updated = true;
-                Messages.UPDATING_CONFIG.log(key);
+                plugin.getServer().getConsoleSender().sendMessage(getLanguage().getString(Messages.UPDATING_CONFIG.getPath()));
                 configuration.set(key, defaultConfiguration.get(key));
             }
         }
         for (String key : configuration.getKeys(false)) {
             if (defaultConfiguration.get(key) == null) {
                 updated = true;
-                Messages.REMOVING_CONFIG.log(key);
+                plugin.getServer().getConsoleSender().sendMessage(getLanguage().getString(Messages.REMOVING_CONFIG.getPath()));
                 configuration.set(key, null);
             }
         }
