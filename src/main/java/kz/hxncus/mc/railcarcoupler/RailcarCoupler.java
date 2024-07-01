@@ -3,10 +3,10 @@ package kz.hxncus.mc.railcarcoupler;
 import kz.hxncus.mc.railcarcoupler.cache.PlayerCache;
 import kz.hxncus.mc.railcarcoupler.cache.TrainCache;
 import kz.hxncus.mc.railcarcoupler.command.CouplerCommand;
+import kz.hxncus.mc.railcarcoupler.config.ConfigManager;
 import kz.hxncus.mc.railcarcoupler.listener.EntityListener;
 import kz.hxncus.mc.railcarcoupler.listener.PlayerListener;
 import kz.hxncus.mc.railcarcoupler.manager.CacheManager;
-import kz.hxncus.mc.railcarcoupler.manager.FileManager;
 import kz.hxncus.mc.railcarcoupler.manager.InventoryManager;
 import kz.hxncus.mc.railcarcoupler.util.QueueUtil;
 import kz.hxncus.mc.railcarcoupler.util.VectorUtil;
@@ -23,15 +23,17 @@ import java.util.*;
 
 @Getter
 public final class RailcarCoupler extends JavaPlugin {
-    @Getter
     private static RailcarCoupler instance;
-    private FileManager fileManager;
+    private ConfigManager configManager;
     private CacheManager cacheManager;
     private InventoryManager inventoryManager;
 
-    @Override
-    public void onLoad() {
+    public RailcarCoupler() {
         instance = this;
+    }
+
+    public static RailcarCoupler get() {
+        return instance;
     }
 
     @Override
@@ -48,7 +50,7 @@ public final class RailcarCoupler extends JavaPlugin {
     }
 
     private void registerManagers() {
-        fileManager = new FileManager(this);
+        configManager = new ConfigManager(this);
         cacheManager = new CacheManager(this);
         inventoryManager = new InventoryManager(this);
     }

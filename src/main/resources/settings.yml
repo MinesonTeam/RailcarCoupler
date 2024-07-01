@@ -1,6 +1,7 @@
 # Пожалуйста, не изменяйте версию плагина.
 version: 1
-lang: "ru"
+lang: "en"
+debug: false
 main_train_material: FURNACE
 coupler_material: CHAIN
 coupler_selected_effect: VILLAGER_HAPPY

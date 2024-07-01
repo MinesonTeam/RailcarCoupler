@@ -15,9 +15,9 @@ public class Constants {
 
     public final Set<String> EMBEDDED_LANGUAGES = new HashSet<>(Arrays.asList("langs\\en.yml", "langs\\ru.yml"));
     public final Set<String> SUPPORTED_LANGUAGES = new HashSet<>();
-    public final Set<String> FILES = new HashSet<>(Arrays.asList("config.yml", "data.yml"));
+    public final Set<String> FILES = new HashSet<>(Arrays.asList("settings.yml", "data.yml"));
     static {
-        File[] files = new File(RailcarCoupler.getInstance().getDataFolder(), "langs").listFiles();
+        File[] files = new File(RailcarCoupler.get().getDataFolder(), "langs").listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.getName().endsWith(YML_EXPANSION)) {

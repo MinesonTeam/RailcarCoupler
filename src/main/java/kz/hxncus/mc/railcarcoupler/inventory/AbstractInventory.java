@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 
 @Getter
 public abstract class AbstractInventory implements IInventory {
-    public final RailcarCoupler plugin = RailcarCoupler.getInstance();
+    public final RailcarCoupler plugin = RailcarCoupler.get();
     public final Inventory inventory;
     private final Map<Integer, Consumer<InventoryClickEvent>> itemClickHandlers = new ConcurrentHashMap<>();
     private final List<Consumer<InventoryDragEvent>> dragHandlers = new ArrayList<>();

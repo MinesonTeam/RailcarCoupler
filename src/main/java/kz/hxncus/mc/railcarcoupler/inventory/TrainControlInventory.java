@@ -1,19 +1,20 @@
 package kz.hxncus.mc.railcarcoupler.inventory;
 
 import kz.hxncus.mc.railcarcoupler.cache.TrainCache;
+import kz.hxncus.mc.railcarcoupler.config.Messages;
 import kz.hxncus.mc.railcarcoupler.hook.ItemsAdderHook;
-import kz.hxncus.mc.railcarcoupler.util.Messages;
-import kz.hxncus.mc.railcarcoupler.util.VectorUtil;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
-import java.util.*;
+import java.util.Locale;
 
 public class TrainControlInventory extends AbstractInventory {
     private final FileConfiguration config = plugin.getConfig();
@@ -22,7 +23,7 @@ public class TrainControlInventory extends AbstractInventory {
     private final int forwardSlot = config.getInt("inventory.forward_slot", 16);
 
     public TrainControlInventory() {
-        super(27, Messages.TRAIN_CONTROL_INV_TITLE.getMessage(0));
+        super(27, Messages.TRAIN_CONTROL_INV_TITLE.toString());
     }
 
     private boolean isItemsAdderItem(String material) {

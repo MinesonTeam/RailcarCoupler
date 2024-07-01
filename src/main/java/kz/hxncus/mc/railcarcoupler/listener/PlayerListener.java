@@ -3,9 +3,9 @@ package kz.hxncus.mc.railcarcoupler.listener;
 import kz.hxncus.mc.railcarcoupler.RailcarCoupler;
 import kz.hxncus.mc.railcarcoupler.cache.PlayerCache;
 import kz.hxncus.mc.railcarcoupler.cache.TrainCache;
+import kz.hxncus.mc.railcarcoupler.config.Messages;
 import kz.hxncus.mc.railcarcoupler.inventory.IInventory;
 import kz.hxncus.mc.railcarcoupler.inventory.TrainControlInventory;
-import kz.hxncus.mc.railcarcoupler.util.Messages;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
@@ -74,18 +74,18 @@ public class PlayerListener implements Listener {
         if (playerCache.getMinecartUuid() == null) {
             playerCache.setMinecartUuid(minecart.getUniqueId());
             playerCache.setTask(plugin.getServer().getScheduler().runTaskLater(plugin, () -> playerCache.setMinecartUuid(null), 6000L));
-            Messages.CHOSEN_FIRST_VEHICLE.sendMessage(event.getPlayer());
+            Messages.CHOSEN_FIRST_VEHICLE.send(event.getPlayer());
             return;
         }
         Entity entity = plugin.getServer().getEntity(playerCache.getMinecartUuid());
         playerCache.setMinecartUuid(null);
         playerCache.setTask(null);
         if (entity == null || minecart.getLocation().distance(entity.getLocation()) > 3) {
-            Messages.FIRST_VEHICLE_NOT_FOUND.sendMessage(event.getPlayer());
+            Messages.FIRST_VEHICLE_NOT_FOUND.send(event.getPlayer());
             return;
         }
         itemInMainHand.setAmount(itemInMainHand.getAmount() - 1);
         plugin.getCacheManager().getTrainCache(entity.getUniqueId()).setCoupledVehicle(minecart.getUniqueId());
-        Messages.VEHICLES_SUCCESSFULLY_COUPLED.sendMessage(event.getPlayer());
+        Messages.VEHICLES_SUCCESSFULLY_COUPLED.send(event.getPlayer());
     }
 }
