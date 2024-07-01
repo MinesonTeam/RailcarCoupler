@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Locale;
 
@@ -46,9 +47,31 @@ public class TrainControlInventory extends AbstractInventory {
         String backwardMaterial = config.getString("inventory.backward_material", "OAK_BUTTON");
         String forwardMaterial = config.getString("inventory.forward_material", "OAK_BUTTON");
 
-        setItem(stillSlot, getItemStack(stillMaterial));
-        setItem(backwardSlot, getItemStack(backwardMaterial));
-        setItem(forwardSlot, getItemStack(forwardMaterial));
+        ItemStack stillItem = getItemStack(stillMaterial);
+        ItemMeta stillItemMeta = stillItem.getItemMeta();
+        if (stillItemMeta != null) {
+            stillItemMeta.setDisplayName(config.getString("inventory.still_name"));
+            stillItemMeta.setLore(config.getStringList("inventory.still_lore"));
+            stillItem.setItemMeta(stillItemMeta);
+        }
+        ItemStack backwardItem = getItemStack(backwardMaterial);
+        ItemMeta backwardItemMeta = backwardItem.getItemMeta();
+        if (backwardItemMeta != null) {
+            backwardItemMeta.setDisplayName(config.getString("inventory.backward_name"));
+            backwardItemMeta.setLore(config.getStringList("inventory.backward_lore"));
+            backwardItem.setItemMeta(backwardItemMeta);
+        }
+        ItemStack forwardItem = getItemStack(forwardMaterial);
+        ItemMeta forwardItemMeta = forwardItem.getItemMeta();
+        if (forwardItemMeta != null) {
+            forwardItemMeta.setDisplayName(config.getString("inventory.forward_name"));
+            forwardItemMeta.setLore(config.getStringList("inventory.forward_lore"));
+            forwardItem.setItemMeta(forwardItemMeta);
+        }
+
+        setItem(stillSlot, stillItem);
+        setItem(backwardSlot, backwardItem);
+        setItem(forwardSlot, forwardItem);
     }
 
     @Override
